@@ -26,6 +26,12 @@ class UserController
         require './views/layout.phtml';
     }
     
+    //RENDER JSON
+    public function renderJson(array $values)
+    {
+        echo json_encode($values, JSON_PRETTY_PRINT);
+    }
+    
     //READ ALL USERS
     public function getAllUsers() : array
     {
@@ -38,6 +44,8 @@ class UserController
     {
         $user = $this->manager->getUserById($id);
         $this->render("views/users/user.phtml", [$user]);
+        $userJson = $user->jsonSerialize();
+        $this->renderJson($userJson);
         return $user;
     }
     
@@ -62,20 +70,28 @@ class UserController
     //EDIT USER
     public function editUser($id) : void
     {
-        if(isset($_POST['submit-edit']))
+        // if(isset($_POST['submit-edit']))
+        // {
+        $oldUser = $this->manager->getUserById($id);
+        if(isset($_POST['firstName']))
         {
             $firstName = $_POST['firstName'];
+        }
+        else
+        {
+            $firstName = $oldUser->getFirstName();
+        }
             $lastName = $_POST['lastName'];
             $email = $_POST['email'];
             $user = new User($firstName, $lastName, $email);
             $user->setId($id);
             $this->manager->editUser($user);
             $this->render("views/users/index.phtml", $this->getAllUsers());
-        }
-        else
-        {
-            $this->render("views/users/edit.phtml", $this->getAllUsers());
-        }
+        // }
+        // else
+        // {
+        //     $this->render("views/users/edit.phtml", $this->getAllUsers());
+        // }
     }
     
     //DELETE USER

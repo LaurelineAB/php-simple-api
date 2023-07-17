@@ -56,7 +56,11 @@ class Router
             }
             else if ($route === "read-all-users")
             {
-                $this->controller->render("views/users/index.phtml", $this->controller->getAllUsers());
+                $users = $this->controller->getAllUsers();
+                //RENDER HTML :
+                // $this->controller->render("views/users/index.phtml", $users);
+                // RENDER JSON : 
+                $this->controller->renderJson($users);
             }
         }
         else

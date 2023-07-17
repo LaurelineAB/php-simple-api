@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User implements JsonSerializable
 {
     //ATTRIBUTES
     private ?int $id;
@@ -55,6 +55,18 @@ class User
     public function setEmail(string $email) : void
     {
         $this->email = $email;
+    }
+    
+    //JSON
+    public function jsonSerialize()
+    {
+        $array = [];
+        $array['id'] = $this->id;
+        $array['firstName'] = $this->firstName;
+        $array['lastName'] = $this->lastName;
+        $array['email'] = $this->email;
+        
+        return $array;
     }
 }
 
