@@ -1,0 +1,15 @@
+<h1>Supprimer un utilisateur</h1>
+<form action="index.php?route=delete-user" method="POST">
+    <fieldset>
+        <label for="userId">Utilisateur à supprimer</label>
+        <select name="userId" id="userId">
+            <?php
+            foreach($data as $user)
+            {
+                echo "<option value='".$user['id']."'>".$user['first_name']." ".$user['last_name']."</option>";
+            }
+            ?>
+        </select>
+    </fieldset>
+    <input type="submit" name="submit-delete" id="submit-delete" value="Submit"/>
+</form>

@@ -17,28 +17,37 @@ class Router
         {
             if($route === "create-user")
             {
+                // if(isset($_POST))
+                // {
+                //     $this->controller->createUser();
+                // }
+                // else
+                // {
+                //     $this->controller->render("views/users/create.phtml",[]);
+                // }
                 $this->controller->createUser();
             }
             else if ($route === "edit-user")
             {
-                if(isset($_POST))
+                if(isset($_POST['submit-edit']))
                 {
-                    $this->controller->editUser($_POST['id']);
+                    $this->controller->editUser($_POST['userId']);
                 }
                 else
                 {
-                    $this->controller->render("views/users/edit.phtml",[]);
+                    $this->controller->render("views/users/edit.phtml",$this->controller->getAllUsers());
                 }
+                // $this->controller->editUser($_POST['userId']);
             }
             else if ($route === "delete-user")
             {
-                if(isset($_POST))
+                if(isset($_POST['submit-delete']))
                 {
-                    $this->controller->deleteUser($_POST['id']);
+                    $this->controller->deleteUser($_POST['userId']);
                 }
                 else
                 {
-                    $this->controller->render("views/users/delete.phtml",[]);
+                    $this->controller->render("views/users/delete.phtml", $this->controller->getAllUsers());
                 }
             }
             else if ($route === "read-user" && isset($_GET['user_id']))
@@ -47,7 +56,7 @@ class Router
             }
             else if ($route === "read-all-users")
             {
-                $this->controller->getAllUsers();
+                $this->controller->render("views/users/index.phtml", $this->controller->getAllUsers());
             }
         }
         else

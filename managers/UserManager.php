@@ -55,7 +55,7 @@ class UserManager
         [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
-            'email' => $user->getEmail
+            'email' => $user->getEmail()
         ];
         $query->execute($parameters);
         $id = $this->db->lastInsertId();
@@ -68,7 +68,7 @@ class UserManager
     {
         $query = $this->db->prepare(
             "UPDATE users 
-            SET (first_name = :firstName, last_name = :lastName, email = :email)
+            SET first_name = :firstName, last_name = :lastName, email = :email
             WHERE id = :id");
         $parameters =
         [
@@ -84,7 +84,7 @@ class UserManager
     public function deleteUser(int $id) : void
     {
         $query = $this->db->prepare("DELETE FROM users WHERE id = ?");
-        $query->execute([$id)]);
+        $query->execute([$id]);
     }
     
     //READ USER

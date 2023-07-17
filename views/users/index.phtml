@@ -1,0 +1,9 @@
+<h1>Liste des utilisateurs</h1>
+<ul>
+    <?php
+    foreach($data as $user)
+    {
+        echo "<li><a href='index.php?route=read-user&user_id=".$user['id']."'>".$user['first_name']." ".$user['last_name']."</a></li>";
+    }
+    ?>
+</ul>
